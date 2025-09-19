@@ -1,0 +1,5 @@
+.hbuilderx/
+unpackage/
+node_modules/
+/static/tailwind.css
+/.vscode
