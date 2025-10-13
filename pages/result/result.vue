@@ -51,51 +51,84 @@ import { method } from 'lodash'
  * @param {string} filename 保存的文件名
  */
 function forceDownloadImage(url, filename = 'image') {
-	// 创建img元素加载图片
-	const img = new Image();
-	// 跨域设置
-	img.crossOrigin = 'anonymous';
+	// 检查是否在iOS设备上
+	const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+				 (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+	
+	if (isIOS) {
+		// iOS设备使用新窗口打开图片
+		const newWindow = window.open('', '_blank');
+		newWindow.document.write(`
+			<!DOCTYPE html>
+			<html>
+			<head>
+				<title>图片预览</title>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+				<style>
+					body { 
+						margin: 0; 
+						padding: 20px; 
+						display: flex; 
+						flex-direction: column; 
+						align-items: center; 
+						justify-content: center; 
+						height: 100vh; 
+						background-color: #f5f5f5; 
+					}
+					img { 
+						max-width: 100%; 
+						max-height: 80vh; 
+						margin-bottom: 20px; 
+					}
+					button { 
+						padding: 10px 20px; 
+						background-color: #007AFF; 
+						color: white; 
+						border: none; 
+						border-radius: 5px; 
+						font-size: 16px; 
+						cursor: pointer; 
+					}
+				</style>
+			</head>
+			<body>
+				<img src="${url}" alt="预览图片">
+				<p>长按图片选择"保存到相册"</p>
+				<button onclick="window.close()">关闭</button>
+			</body>
+			</html>
+		`);
+		newWindow.document.close();
+		return;
+	}
 
-	img.onload = function () {
-		// 创建画布绘制图片
-		const canvas = document.createElement('canvas');
-		canvas.width = img.width;
-		canvas.height = img.height;
-		const ctx = canvas.getContext('2d');
-		ctx.drawImage(img, 0, 0);
-
-		// 将画布内容转为blob并创建下载链接
-		canvas.toBlob(blob => {
-			const url = URL.createObjectURL(blob);
+	// 非iOS设备使用原来的下载逻辑
+	const xhr = new XMLHttpRequest();
+	xhr.open('GET', url, true);
+	xhr.responseType = 'blob';
+	xhr.onload = function() {
+		if (xhr.status === 200) {
+			const blob = xhr.response;
 			const a = document.createElement('a');
+			const url = window.URL.createObjectURL(blob);
 			a.href = url;
 			a.download = filename;
-
 			document.body.appendChild(a);
 			a.click();
-
-			// 清理资源
+			
+			// 清理
 			setTimeout(() => {
 				document.body.removeChild(a);
-				URL.revokeObjectURL(url);
+				window.URL.revokeObjectURL(url);
 			}, 100);
-		});
+		}
 	};
-
-	// 处理加载错误
-	img.onerror = function () {
-		console.error('图片加载失败，可能是跨域问题');
-		// 尝试备选方案 - 直接下载
-		const a = document.createElement('a');
-		a.href = url;
-		a.download = filename;
-		a.rel = 'noopener';
-		document.body.appendChild(a);
-		a.click();
-		document.body.removeChild(a);
+	xhr.onerror = function() {
+		console.error('下载失败，请检查网络连接或图片链接');
+		// 备选方案：直接在新窗口打开
+		window.open(url, '_blank');
 	};
-
-	img.src = url;
+	xhr.send();
 }
 
 export default {
@@ -134,12 +167,14 @@ export default {
 			this.packagePicList = res.result.picList;
 			this.generate()
 		})
+		
 		this.$http.get('/pengyipeng/user-app/api/getShortLinkInfo', {
 			merchantId: this.merchantId,
 			platformName: this.item.name,
 		}).then(res => {
 			this.shortLinkInfo = res.result
 		})
+		
 	},
 	methods: {
 		savePic(item, index) {
@@ -165,7 +200,7 @@ export default {
 			task.onChunkReceived((a) => {
 				const decoder = new TextDecoder('utf-8')
 				const text = decoder.decode(a.data)
-				// console.log(text)
+				console.log(text)
 				this.generatedContent += text.replace(/data:|\n/g, '')
 			})
 			// this.$http.get('/pengyipeng/user-app/api/ai/generate', {
@@ -201,6 +236,14 @@ export default {
 
 					if (this.item.name == 'xiaohongshu') {
 						location.href = 'xhsdiscover://post_note'
+						return
+					}
+					if (this.item.name==="xiecheng"){
+						location.href = "Ctrip://wireless";
+						return
+					}
+					if(this.item.name==="wechat_friend"){
+						location.href = "weixin://";
 						return
 					}
 

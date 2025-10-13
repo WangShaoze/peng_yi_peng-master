@@ -2,8 +2,8 @@ let _DOMAIN = 'https://pyp.ylkj668.com/jeecg-boot'; // 生产环境默认地址
 if (process.env.NODE_ENV === 'development') {
     // _DOMAIN = 'http://127.0.0.1:4523/m1/374563-419298-default';
     // _DOMAIN = 'https://5959387f.r19.cpolar.top/jeecg-boot';
-    //_DOMAIN = 'https://pyp.ylkj668.com/jeecg-boot';
-	_DOMAIN = 'http://192.168.3.87:8080/jeecg-boot';
+    _DOMAIN = 'https://pyp.ylkj668.com/jeecg-boot';
+	// _DOMAIN = 'http://192.168.3.87:8081/jeecg-boot';
 }
 
 export const DOMAIN = _DOMAIN

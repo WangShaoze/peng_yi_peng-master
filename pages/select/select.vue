@@ -72,6 +72,7 @@ export default {
 			this.list1 = res.result
 		})
 		const infoStore = useInfoStore();
+		console.log(infoStore.allKeywords);
 		this.list2 = infoStore.allKeywords.map(item=>{
 			return { name: item.tagName, id:item.id, classificationMiddleId:item.classificationMiddleId }
 		})

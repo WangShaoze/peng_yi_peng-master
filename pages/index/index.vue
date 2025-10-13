@@ -138,7 +138,8 @@ export default {
 				}, {
 					'Content-Type': 'application/x-www-form-urlencoded'
 				}).then(res => {
-					location.href = 'weixin://dl/business/?env_version=trial&appid=wx2d666761d42f5595&path=pages/qr_code/qr_code&query=' + encodeURIComponent('merchantId=' + this.merchantId)
+					location.href = 'weixin://dl/business/?env_version=trial&appid=wx2d666761d42f5595&path=pages/qrCode/QrCode&query='+ encodeURIComponent('merchantId=' + this.merchantId)
+					//location.href = 'weixin://dl/business/?env_version=trial&appid=wx2d666761d42f5595&path=pages/qr_code/qr_code&query=' + encodeURIComponent('merchantId=' + this.merchantId)
 					// location.href = 'weixin://dl/business/?appid=wx2d666761d42f5595&path=pages/qr_code/qr_code&query=' + encodeURIComponent('merchantId=' + this.merchantId)
 				})
 
