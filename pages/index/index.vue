@@ -138,8 +138,8 @@ export default {
 				}, {
 					'Content-Type': 'application/x-www-form-urlencoded'
 				}).then(res => {
-					//location.href = 'weixin://dl/business/?env_version=release&appid=wx2d666761d42f5595&path=pages/qrCode/QrCode&query='+ encodeURIComponent('merchantId=' + this.merchantId)
-					location.href = 'weixin://dl/business/?env_version=trial&appid=wx2d666761d42f5595&path=pages/qrCode/QrCode&query='+ encodeURIComponent('merchantId=' + this.merchantId)
+					location.href = 'weixin://dl/business/?env_version=release&appid=wx2d666761d42f5595&path=pages/qrCode/QrCode&query='+ encodeURIComponent('merchantId=' + this.merchantId)
+					//location.href = 'weixin://dl/business/?env_version=trial&appid=wx2d666761d42f5595&path=pages/qrCode/QrCode&query='+ encodeURIComponent('merchantId=' + this.merchantId)
 				})
 				return
 			}
@@ -166,8 +166,8 @@ export default {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			})
 			console.log(encodeURIComponent('wifiName=' + encodeURIComponent(this.merchant.wifiUser) + '&wifiPwd=' + this.merchant.wifiPwd));
-			//location.href = 'weixin://dl/business/?env_version=release&appid=wx2d666761d42f5595&path=pages/wifi/wifi&query=' + encodeURIComponent('wifiName=' + encodeURIComponent(this.merchant.wifiUser) + '&wifiPwd=' + encodeURIComponent(this.merchant.wifiPwd))
-			location.href = 'weixin://dl/business/?env_version=trial&appid=wx2d666761d42f5595&path=pages/wifi/wifi&query=' + encodeURIComponent('wifiName=' + encodeURIComponent(this.merchant.wifiUser) + '&wifiPwd=' + encodeURIComponent(this.merchant.wifiPwd))
+			location.href = 'weixin://dl/business/?env_version=release&appid=wx2d666761d42f5595&path=pages/wifi/wifi&query=' + encodeURIComponent('wifiName=' + encodeURIComponent(this.merchant.wifiUser) + '&wifiPwd=' + encodeURIComponent(this.merchant.wifiPwd))
+			//location.href = 'weixin://dl/business/?env_version=trial&appid=wx2d666761d42f5595&path=pages/wifi/wifi&query=' + encodeURIComponent('wifiName=' + encodeURIComponent(this.merchant.wifiUser) + '&wifiPwd=' + encodeURIComponent(this.merchant.wifiPwd))
 			
 		}
 	}
