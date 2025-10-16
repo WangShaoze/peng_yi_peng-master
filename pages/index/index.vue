@@ -138,11 +138,9 @@ export default {
 				}, {
 					'Content-Type': 'application/x-www-form-urlencoded'
 				}).then(res => {
+					//location.href = 'weixin://dl/business/?env_version=release&appid=wx2d666761d42f5595&path=pages/qrCode/QrCode&query='+ encodeURIComponent('merchantId=' + this.merchantId)
 					location.href = 'weixin://dl/business/?env_version=trial&appid=wx2d666761d42f5595&path=pages/qrCode/QrCode&query='+ encodeURIComponent('merchantId=' + this.merchantId)
-					//location.href = 'weixin://dl/business/?env_version=trial&appid=wx2d666761d42f5595&path=pages/qr_code/qr_code&query=' + encodeURIComponent('merchantId=' + this.merchantId)
-					// location.href = 'weixin://dl/business/?appid=wx2d666761d42f5595&path=pages/qr_code/qr_code&query=' + encodeURIComponent('merchantId=' + this.merchantId)
 				})
-
 				return
 			}
 			if (['dazhong_tuan', 'douyin_tuan', 'meituan_tuan',].indexOf(item.name) != -1) {
@@ -167,8 +165,10 @@ export default {
 			}, {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			})
-			location.href = 'weixin://dl/business/?env_version=trial&appid=wx2d666761d42f5595&path=pages/wifi/wifi&query=' + encodeURIComponent('wifiName=' + this.merchant.wifiUser + '&wifiPwd=' + this.merchant.wifiPwd)
-			// location.href = 'weixin://dl/business/?appid=wx2d666761d42f5595&path=pages/wifi/wifi&query=' + encodeURIComponent('wifiName=' + this.merchant.wifiUser + '&wifiPwd=' + this.merchant.wifiPwd)
+			console.log(encodeURIComponent('wifiName=' + encodeURIComponent(this.merchant.wifiUser) + '&wifiPwd=' + this.merchant.wifiPwd));
+			//location.href = 'weixin://dl/business/?env_version=release&appid=wx2d666761d42f5595&path=pages/wifi/wifi&query=' + encodeURIComponent('wifiName=' + encodeURIComponent(this.merchant.wifiUser) + '&wifiPwd=' + encodeURIComponent(this.merchant.wifiPwd))
+			location.href = 'weixin://dl/business/?env_version=trial&appid=wx2d666761d42f5595&path=pages/wifi/wifi&query=' + encodeURIComponent('wifiName=' + encodeURIComponent(this.merchant.wifiUser) + '&wifiPwd=' + encodeURIComponent(this.merchant.wifiPwd))
+			
 		}
 	}
 }
